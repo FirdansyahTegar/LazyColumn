@@ -127,11 +127,3 @@ fun NameListScreen(onUserClick: (User) -> Unit) {
 }
 
 
-
-//@Preview(showBackground = true)
-//@Composable
-//fun NameListScreenPreview() {
-//    ComposeLazyColumnTheme {
-//        NameListScreen()
-//    }
-//}
