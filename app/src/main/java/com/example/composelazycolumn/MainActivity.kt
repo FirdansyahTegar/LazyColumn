@@ -1,6 +1,7 @@
 package com.example.composelazycolumn
 
 import UserDetailScreen
+import InsertUserForm
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,10 +28,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import com.example.composelazycolumn.model.User
 import com.example.composelazycolumn.service.RetrofitInstance
-
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import android.graphics.Color as Colour
 import com.example.composelazycolumn.viewModel.UserViewModel
 import androidx.activity.viewModels
 import androidx.navigation.compose.*
+import android.app.Activity
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.platform.LocalView
+import com.example.composelazycolumn.view.RegisterUserScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +61,9 @@ class MainActivity : ComponentActivity() {
                     composable("detail") {
                         UserDetailScreen(userViewModel)
                     }
+                    composable("register") {
+                        RegisterUserScreen(userViewModel)
+                    }
                 }
             }
         }
@@ -62,12 +72,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NameListScreen(onUserClick: (User) -> Unit) {
+    UpdateStatusBarColor(isLightBackground = true)
+
     var users by remember { mutableStateOf<List<User>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         try {
-            users = RetrofitInstance.api.getUsers()
+            users = RetrofitInstance.apiService.getUsers()
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -86,6 +98,7 @@ fun NameListScreen(onUserClick: (User) -> Unit) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
                 .padding(16.dp)
         ) {
             items(users) { user ->
@@ -127,6 +140,15 @@ fun NameListScreen(onUserClick: (User) -> Unit) {
 }
 
 
+@Composable
+fun UpdateStatusBarColor(isLightBackground: Boolean) {
+    val view = LocalView.current
+    SideEffect {
+        val window = (view.context as Activity).window
+        window.statusBarColor = if (isLightBackground) Colour.WHITE else Colour.BLACK //warna bg putih/hitam
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = isLightBackground //warna ikon light/dark
+    }
+}
 
 //@Preview(showBackground = true)
 //@Composable

@@ -1,0 +1,7 @@
+
+                v--------------
+Retrofit -> View Model -> Composable
+Model ----------^
+
+retrofit koneksi ke db, kemudian dibuat API, API dipanggil di viewmodel,
+viewmodel mengambil struktur data dari model kemudian composable memanggil viewmodel.

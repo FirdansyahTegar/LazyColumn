@@ -9,8 +9,9 @@ data class Address(
 
 data class User(
     val id: String,
-    val name: String,
-    val email: String,
     val username: String,
-    val address: Address
+    val email: String,
+    val private_key: String,
+    val created_at: String
+//    val address: Address
 )

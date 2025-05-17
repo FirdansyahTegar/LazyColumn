@@ -48,11 +48,16 @@ fun UserDetailScreen(viewModel: UserViewModel) {
                 Modifier.padding(start = 12.dp)
             ){
                 Spacer(modifier = Modifier.height(80.dp))
-                Text("Name: ${user!!.name}", style = MaterialTheme.typography.headlineSmall)
+                Text("Name: ${user!!.username}", style = MaterialTheme.typography.headlineSmall)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Address:")
-                Text("${user!!.address.street}, ${user!!.address.suite}")
-                Text("${user!!.address.city} - ${user!!.address.zipcode}")
+//                Text("bio: ${user!!.bio}")
+//                Spacer(modifier = Modifier.height(8.dp))
+                Text("password: ${user!!.private_key}")
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("account created at: ${user!!.created_at}")
+//                Text("Address:")
+//                Text("${user!!.address.street}, ${user!!.address.suite}")
+//                Text("${user!!.address.city} - ${user!!.address.zipcode}")
             }
         }
     }
